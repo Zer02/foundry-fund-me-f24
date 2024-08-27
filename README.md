@@ -64,3 +64,14 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+## Notes - Getting Started
+forge init
+forge test
+forge install smartcontractkit/chainlink-brownie-contracts --no-commit
+forge build 
+forge test -vv
+forge script script/DeployFundMe.s.sol
+forge test --mt testPriceFeedVersionIsAccurate --fork-url $SEPOLIA_RPC_URL
+forge coverage --fork-url $SEPOLIA_RPC_URL
+forge test --fork-url $SEPOLIA_RPC_URL
