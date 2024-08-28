@@ -76,4 +76,8 @@ forge script script/DeployFundMe.s.sol
 forge test --mt testPriceFeedVersionIsAccurate --fork-url $SEPOLIA_RPC_URL
 forge coverage --fork-url $SEPOLIA_RPC_URL
 forge test --fork-url $SEPOLIA_RPC_URL
+forge snapshot --mt testWithdrawFromMultipleFunders
+forge inspect FundMe storageLayout
+
+forge install ChainAccelOrg/foundry-devops --no-commit
 ```
