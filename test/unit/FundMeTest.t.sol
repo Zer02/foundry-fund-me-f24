@@ -4,9 +4,11 @@ pragma solidity ^0.8.18;
 import { Test, console } from "../../lib/forge-std/src/Test.sol";
 import { FundMe } from "../../src/FundMe.sol";
 import { DeployFundMe } from "../../script/DeployFundMe.s.sol";
+import {HelperConfig} from "../../script/HelperConfig.s.sol";
 
 contract FundMeTest is Test {
   FundMe fundMe;
+  HelperConfig public helperConfig;
 
   address USER = makeAddr("user");
   uint256 constant SEND_VALUE = 0.1 ether;
@@ -15,8 +17,8 @@ contract FundMeTest is Test {
 
   function setUp() external {
     // fundMe = new FundMe(0x694AA1769357215DE4FAC081bf1f309aDC325306);
-    DeployFundMe deployFundMe = new DeployFundMe();
-    fundMe = deployFundMe.run();
+    DeployFundMe deployer = new DeployFundMe();
+    (fundMe, helperConfig) = deployer.deployFundMe();
     vm.deal(USER, STARTING_BALANCE);
   }
 
@@ -70,7 +72,7 @@ contract FundMeTest is Test {
     uint256 startingOwnerBalance = fundMe.getOwner().balance;
     uint256 startingFundMeBalance = address(fundMe).balance;
 
-    uint256 gasStart = gasleft();
+    // uint256 gasStart = gasleft();
     vm.txGasPrice(GAS_PRICE);
     vm.prank(fundMe.getOwner());
     fundMe.withdraw();

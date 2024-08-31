@@ -5,11 +5,11 @@ import {Test, console} from "../../lib/forge-std/src/Test.sol";
 import {FundMe} from "../../src/FundMe.sol";
 import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 import {FundFundMe, WithdrawFundMe} from "../../script/Interactions.s.sol";
-// import {HelperConfig} from "../../script/HelperConfig.s.sol";
+import {HelperConfig} from "../../script/HelperConfig.s.sol";
 
 contract InteractionsTest is Test {
     FundMe public fundMe;
-    DeployFundMe deployFundMe;
+    HelperConfig public helperConfig;
 
     uint256 public constant SEND_VALUE = 0.1 ether;
     uint256 public constant STARTING_USER_BALANCE = 10 ether;
@@ -17,8 +17,8 @@ contract InteractionsTest is Test {
     address alice = makeAddr("alice");
 
     function setUp() external {
-        deployFundMe = new DeployFundMe();
-        fundMe = deployFundMe.run();
+        DeployFundMe deployer = new DeployFundMe();
+        (fundMe, helperConfig) = deployer.deployFundMe();
         vm.deal(alice, STARTING_USER_BALANCE);
     }
 
